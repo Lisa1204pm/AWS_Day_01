@@ -3,37 +3,36 @@ const app = express();
 // Before the other routes
 app.use(express.static("build"))
 
+app.use(express.json())
+const pokemons = [
+  {
+    id: 1,
+    name: "Pikachu",
+    level: 99,
+    type: "electric ⚡️"
+  },
+  {
+    id: 2,
+    name: "Charmander",
+    level: 82,
+    type: "fire 🔥"
+  },
+  {
+    id: 3,
+    name: "Squirtle",
+    level: 50,
+    type: "water 💧"
+  }
+]
 app.get("/api/pokemons", (req, res) => {
-  console.log("GET /api/pokemons")
-  res.send([
-    {
-      id: 1,
-      name: "Pikachu",
-      type: "electric ⚡️",
-      level: 99,
-      image: "/pikachu.webp"
-    },
-    {
-      id: 2,
-      name: "Charmander",
-      type: "fire 🔥",
-      level: 50,
-      image: "/charmander.webp"
-    },
-    {
-      id: 3,
-      name: "Squirtle",
-      type: "water 💧",
-      level: 50,
-      image: "/squirtle.webp"
-    }
-  ])
+  console.log("server:: GET /api/pokemons", pokemons)
+  res.send(pokemons)
 });
 
 app.post("/api/pokemons", (req, res) => {
   const data = req.body
-  console.log("POST /api/pokemons", data)
   data.id = pokemons.length+1
+  console.log("server:: POST /api/pokemons", data)
   pokemons.push(data)
   res.send(data)
 })
